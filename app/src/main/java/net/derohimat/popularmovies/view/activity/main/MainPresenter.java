@@ -39,7 +39,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
 
     private MainMvpView mView;
     private Subscription mSubscription;
-    private BaseListApiDao mBaseListApiDao;
+    private BaseListApiDao<MovieDao> mBaseListApiDao;
     private BaseApplication mBaseApplication;
 
     @Override
@@ -68,7 +68,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
         mSubscription = mAPIService.discoverMovie(sortBy, Constant.MOVIEDB_APIKEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
-                .subscribe(new Subscriber<BaseListApiDao>() {
+                .subscribe(new Subscriber<BaseListApiDao<MovieDao>>() {
                     @Override
                     public void onCompleted() {
                         Timber.i("Movies loaded " + mBaseListApiDao);
@@ -89,7 +89,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
                     }
 
                     @Override
-                    public void onNext(BaseListApiDao baseListApiDao) {
+                    public void onNext(BaseListApiDao<MovieDao> baseListApiDao) {
                         mBaseListApiDao = baseListApiDao;
                     }
                 });

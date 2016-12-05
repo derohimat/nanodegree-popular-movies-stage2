@@ -19,6 +19,8 @@
     <string name="dialog_general_error_message">General Error</string>
     <string name="error_not_found">Not found</string>
     <string name="error_loading_movie">error loading movie</string>
+    <string name="error_loading_reviews">error loading reviews</string>
+    <string name="error_loading_videos">error loading videos</string>
     <string name="general">General</string>
     <string name="action_refresh">Refresh</string>
     <string name="generic_error_title">Ops! An error occurred.</string>
@@ -29,5 +31,7 @@
     <string name="no_favorite">No Favorite Movie</string>
     <string name="dummy_release_date">Release date - xxx minutes</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet.</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="user_reviews">User Reviews</string>
 
 </resources>

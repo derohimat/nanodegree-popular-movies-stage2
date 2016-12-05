@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="progressBar_dimen">200dp</dimen>
 
+    <dimen name="spacing_line">1dp</dimen>
     <dimen name="spacing_nano">2dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
@@ -22,4 +23,7 @@
     <integer name="anim_duration_medium">300</integer>
 
     <dimen name="app_bar_height">300dp</dimen>
+    <dimen name="video_height">75dp</dimen>
+    <dimen name="video_width">100dp</dimen>
+    <dimen name="video_max_height">80dp</dimen>
 </resources>

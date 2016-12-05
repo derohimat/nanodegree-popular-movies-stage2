@@ -89,6 +89,58 @@ public class MovieDao extends RealmObject implements Parcelable {
         this.favorite = favorite;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setVideo(boolean video) {
+        this.video = video;
+    }
+
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
     public MovieDao() {
     }
 
@@ -102,7 +154,6 @@ public class MovieDao extends RealmObject implements Parcelable {
         dest.writeLong(this.id);
         dest.writeByte(this.adult ? (byte) 1 : (byte) 0);
         dest.writeString(this.backdrop_path);
-//        dest.writeList(this.genre_ids);
         dest.writeString(this.original_language);
         dest.writeString(this.original_title);
         dest.writeString(this.overview);
@@ -120,8 +171,6 @@ public class MovieDao extends RealmObject implements Parcelable {
         this.id = in.readLong();
         this.adult = in.readByte() != 0;
         this.backdrop_path = in.readString();
-//        this.genre_ids = new ArrayList<Integer>();
-//        in.readList(this.genre_ids, Integer.class.getClassLoader());
         this.original_language = in.readString();
         this.original_title = in.readString();
         this.overview = in.readString();

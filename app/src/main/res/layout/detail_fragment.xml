@@ -85,6 +85,50 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 tools:text="@string/lorem_ipsum"/>
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_line"
+                android:layout_marginBottom="@dimen/spacing_double"
+                android:layout_marginTop="@dimen/spacing_double"
+                android:background="@color/LightGrey"/>
+
+            <LinearLayout
+                android:id="@+id/ly_videos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_normal"
+                    android:text="@string/watch_trailer"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_line"
+                android:layout_marginBottom="@dimen/spacing_double"
+                android:layout_marginTop="@dimen/spacing_double"
+                android:background="@color/LightGrey"/>
+
+            <LinearLayout
+                android:id="@+id/ly_reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_double"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_normal"
+                    android:text="@string/user_reviews"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

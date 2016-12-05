@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?android:attr/selectableItemBackground"
+              android:clickable="true"
+              android:paddingBottom="8dp"
+              android:paddingTop="8dp">
+
+    <net.derohimat.baseapp.ui.view.BaseImageView
+        android:id="@+id/iv_video_thumbnail"
+        android:layout_width="@dimen/video_width"
+        android:layout_height="@dimen/video_height"
+        android:layout_marginRight="@dimen/spacing_double"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/video_max_height"
+        android:scaleType="fitCenter"
+        tools:src="@color/Gray"/>
+
+    <TextView
+        android:id="@+id/tv_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-light"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="@string/lorem_ipsum"/>
+
+
+</LinearLayout>

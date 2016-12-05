@@ -1,16 +1,12 @@
 package net.derohimat.popularmovies.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
-public class ReviewDao extends RealmObject{
-    @PrimaryKey
-    private long id;
+public class ReviewDao {
+    private String id;
     private String author;
     private String content;
     private String url;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

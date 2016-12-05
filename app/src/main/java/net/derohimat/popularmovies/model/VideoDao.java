@@ -1,11 +1,7 @@
 package net.derohimat.popularmovies.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
-public class VideoDao extends RealmObject{
-    @PrimaryKey
-    private long id;
+public class VideoDao {
+    private String id;
     private String iso_639_1;
     private String key;
     private String name;
@@ -13,7 +9,7 @@ public class VideoDao extends RealmObject{
     private int size;
     private String type;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
