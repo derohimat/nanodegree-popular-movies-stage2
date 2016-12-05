@@ -12,6 +12,7 @@ Udacity Nanodegree Popular Movies Stage 2. This app I made with MVP Architecture
 <img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/home.png" width="300">
 <img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/home-sort.png" width="300">
 <img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/detail.png" width="300">
+<img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/detail-trailer-view.png" width="300">
 
 # Requirements :
 	Min SDK Version 15
