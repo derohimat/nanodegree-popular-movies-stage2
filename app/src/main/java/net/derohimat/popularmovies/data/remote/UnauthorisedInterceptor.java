@@ -21,7 +21,7 @@ public class UnauthorisedInterceptor implements Interceptor {
     @Inject
     EventBus eventBus;
 
-    public UnauthorisedInterceptor(Context context) {
+    UnauthorisedInterceptor(Context context) {
         BaseApplication.get(context).getApplicationComponent().inject(this);
     }
 

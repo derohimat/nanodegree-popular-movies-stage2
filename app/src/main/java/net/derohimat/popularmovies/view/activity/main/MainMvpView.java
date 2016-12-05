@@ -1,6 +1,6 @@
 package net.derohimat.popularmovies.view.activity.main;
 
-import net.derohimat.popularmovies.model.DiscoverMovieApiDao;
+import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
 import net.derohimat.popularmovies.view.MvpView;
 
@@ -15,7 +15,7 @@ interface MainMvpView extends MvpView {
 
     void setUpRecyclerView();
 
-    void showDiscoverMovie(DiscoverMovieApiDao discoverMovieApiDao);
+    void showDiscoverMovie(BaseListApiDao baseListApiDao);
 
     void showFavoritesMovie(List<MovieDao> movieDaos);
 

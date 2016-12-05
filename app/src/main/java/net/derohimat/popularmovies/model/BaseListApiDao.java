@@ -2,11 +2,11 @@ package net.derohimat.popularmovies.model;
 
 import java.util.List;
 
-public class DiscoverMovieApiDao {
+public class BaseListApiDao<T> {
     private int page;
     private int total_pages;
     private long total_results;
-    private List<MovieDao> results;
+    private List<T> results;
     private String status_code;
     private String status_message;
 
@@ -18,7 +18,7 @@ public class DiscoverMovieApiDao {
         return status_message;
     }
 
-    public List<MovieDao> getResults() {
+    public List<T> getResults() {
         return results;
     }
 

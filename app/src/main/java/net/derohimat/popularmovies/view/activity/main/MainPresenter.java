@@ -7,7 +7,7 @@ import net.derohimat.popularmovies.BaseApplication;
 import net.derohimat.popularmovies.R;
 import net.derohimat.popularmovies.data.remote.APIService;
 import net.derohimat.popularmovies.events.FavoriteEvent;
-import net.derohimat.popularmovies.model.DiscoverMovieApiDao;
+import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
 import net.derohimat.popularmovies.util.Constant;
 
@@ -39,7 +39,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
 
     private MainMvpView mView;
     private Subscription mSubscription;
-    private DiscoverMovieApiDao mDiscoverMovieApiDao;
+    private BaseListApiDao mBaseListApiDao;
     private BaseApplication mBaseApplication;
 
     @Override
@@ -68,11 +68,11 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
         mSubscription = mAPIService.discoverMovie(sortBy, Constant.MOVIEDB_APIKEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
-                .subscribe(new Subscriber<DiscoverMovieApiDao>() {
+                .subscribe(new Subscriber<BaseListApiDao>() {
                     @Override
                     public void onCompleted() {
-                        Timber.i("Movies loaded " + mDiscoverMovieApiDao);
-                        mView.showDiscoverMovie(mDiscoverMovieApiDao);
+                        Timber.i("Movies loaded " + mBaseListApiDao);
+                        mView.showDiscoverMovie(mBaseListApiDao);
                         mView.hideProgress();
                     }
 
@@ -89,8 +89,8 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
                     }
 
                     @Override
-                    public void onNext(DiscoverMovieApiDao discoverMovieApiDao) {
-                        mDiscoverMovieApiDao = discoverMovieApiDao;
+                    public void onNext(BaseListApiDao baseListApiDao) {
+                        mBaseListApiDao = baseListApiDao;
                     }
                 });
     }

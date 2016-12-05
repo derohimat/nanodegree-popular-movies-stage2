@@ -3,7 +3,10 @@ package net.derohimat.popularmovies.data.remote;
 import android.content.Context;
 
 import net.derohimat.popularmovies.BuildConfig;
-import net.derohimat.popularmovies.model.DiscoverMovieApiDao;
+import net.derohimat.popularmovies.model.BaseListApiDao;
+import net.derohimat.popularmovies.model.MovieDao;
+import net.derohimat.popularmovies.model.ReviewDao;
+import net.derohimat.popularmovies.model.VideoDao;
 import net.derohimat.popularmovies.util.Constant;
 
 import java.util.concurrent.TimeUnit;
@@ -11,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,7 +26,15 @@ import rx.Observable;
 public interface APIService {
 
     @GET("movie/{sort_by}")
-    Observable<DiscoverMovieApiDao> discoverMovie(@Path("sort_by") String sortBy, @Query("api_key") String apiKey);
+    Observable<BaseListApiDao<MovieDao>> discoverMovie(@Path("sort_by") String sortBy, @Query("api_key") String apiKey);
+
+    @GET("movie/{movie_id}/reviews")
+    Call<BaseListApiDao<ReviewDao>> movieReviews(
+            @Path("movie_id") long movieId, @Query("api_key") String apiKey);
+
+    @GET("movie/{movie_id}/videos")
+    Call<BaseListApiDao<VideoDao>> movieVideos(
+            @Path("movie_id") long movieId, @Query("api_key") String apiKey);
 
     class Factory {
 

@@ -1,6 +1,7 @@
 package net.derohimat.popularmovies.view.activity.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +17,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import net.derohimat.baseapp.ui.view.BaseRecyclerView;
 import net.derohimat.popularmovies.R;
 import net.derohimat.popularmovies.events.FavoriteEvent;
-import net.derohimat.popularmovies.model.DiscoverMovieApiDao;
+import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
 import net.derohimat.popularmovies.util.Constant;
 import net.derohimat.popularmovies.util.DialogFactory;
@@ -65,6 +66,15 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
 
         getBaseFragmentManager().addOnBackStackChangedListener(() -> {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setStatusBarColor(Color.TRANSPARENT);
+                }
+
                 getBaseActionBar().setDisplayHomeAsUpEnabled(true);
             } else {
                 getBaseActionBar().setTitle(getString(R.string.app_name));
@@ -190,7 +200,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     }
 
     @Override
-    public void showDiscoverMovie(DiscoverMovieApiDao data) {
+    public void showDiscoverMovie(BaseListApiDao data) {
         mRecyclerView.refreshComplete();
         if (!mAdapter.getDatas().isEmpty()) {
             mAdapter.clear();
