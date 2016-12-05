@@ -1,15 +1,15 @@
-# nanodegree-popular-movies-stage1
+# nanodegree-popular-movies-stage2
 
-Udacity Nanodegree Popular Movies Stage 1. This app I made with MVP Architecture from [Android Base MVP](https://github.com/derohimat/android-base-mvp/)
+Udacity Nanodegree Popular Movies Stage 2. This app I made with MVP Architecture from [Android Base MVP](https://github.com/derohimat/android-base-mvp/)
 
 # Feature
    - Show Movies by Popular and High Rated
    - Show Movies Description
 
 # Screenshots
-<img src="https://github.com/derohimat/nanodegree-popular-movies-stage1/blob/master/home.png" width="300">
-<img src="https://github.com/derohimat/nanodegree-popular-movies-stage1/blob/master/home-sort.png" width="300">
-<img src="https://github.com/derohimat/nanodegree-popular-movies-stage1/blob/master/detail.png" width="300">
+<img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/home.png" width="300">
+<img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/home-sort.png" width="300">
+<img src="https://github.com/derohimat/nanodegree-popular-movies-stage2/blob/master/detail.png" width="300">
 
 # Requirements :
 	Min SDK Version 15
