@@ -135,6 +135,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
 
     @Override
     public void showVideos(List<VideoDao> videos) {
+        mLyVideos.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(mContext);
         for (int i = 0; i < videos.size(); i++) {
             final VideoDao video = videos.get(i);
@@ -158,6 +159,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
 
     @Override
     public void showReviews(List<ReviewDao> reviews) {
+        mLyReviews.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(mContext);
         for (int i = 0; i < reviews.size(); i++) {
             ReviewDao review = reviews.get(i);
