@@ -2,6 +2,15 @@
 
 Udacity Nanodegree Popular Movies Stage 2. This app I made with MVP Architecture from [Android Base MVP](https://github.com/derohimat/android-base-mvp/)
 
+## Udacity Review
+	### Meets Specifications
+	
+	You did a very good job! You could improve your app using some effects 
+	(such as Collapsing Toolbar Layout or Constraint Layout, fab button, expandible textview and so on...) 
+	to make it more gorgeous and you could implementing some extra features (sharing button...) 
+	but also considering the wealth of knowledge you have shown in the use of all those libraries 
+	I'd say you "Exceed Specifications".
+	
 # Feature
    - Show Movies by Popular and High Rated
    - Show Movies Description
