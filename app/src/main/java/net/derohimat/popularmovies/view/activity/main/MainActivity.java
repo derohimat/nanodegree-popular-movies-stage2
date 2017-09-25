@@ -239,7 +239,6 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                                     mPresenter.discoverMovies(mSort);
                                     break;
                                 default:
-                                    ;
                                     mPresenter.discoverFavoritesMovies();
                                     break;
                             }
