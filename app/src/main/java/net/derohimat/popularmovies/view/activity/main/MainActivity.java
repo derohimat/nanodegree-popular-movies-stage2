@@ -1,10 +1,10 @@
 package net.derohimat.popularmovies.view.activity.main;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import net.derohimat.baseapp.ui.view.BaseRecyclerView;
 import net.derohimat.popularmovies.R;
@@ -34,8 +35,9 @@ import butterknife.Bind;
 
 public class MainActivity extends AppBaseActivity implements MainMvpView {
 
-    @Bind(R.id.recyclerview)
-    BaseRecyclerView mRecyclerView;
+    @Bind(R.id.recyclerview) BaseRecyclerView mRecyclerView;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.search_view) MaterialSearchView searchView;
     private ProgressBar mProgressBar = null;
     private MainPresenter mPresenter;
     private MainRecyclerAdapter mAdapter;
@@ -61,6 +63,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
 
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
+        setupToolbar(toolbar);
         getBaseActionBar().setElevation(0);
 
         getBaseFragmentManager().addOnBackStackChangedListener(() -> {
@@ -112,11 +115,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            mRecyclerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        } else {
-                            mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        }
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                         int viewWidth = mRecyclerView.getMeasuredWidth();
                         float cardViewWidth = MAX_WIDTH_COL_DP * getResources().getDisplayMetrics().density;
                         int newSpanCount = Math.max(2, (int) Math.floor(viewWidth / cardViewWidth));
@@ -141,6 +140,33 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
             public void onLoadMore() {
             }
         });
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                mPresenter.searchMovies(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
     }
 
     @Override
@@ -152,13 +178,16 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
+            case R.id.action_sort:
                 showSort();
                 return true;
             default:

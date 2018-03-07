@@ -28,6 +28,11 @@ public interface APIService {
     Observable<BaseListApiDao<MovieDao>> discoverMovie(
             @Path("sort_by") String sortBy, @Query("api_key") String apiKey);
 
+
+    @GET("search/movie")
+    Observable<BaseListApiDao<MovieDao>> searchMovie(@Query("api_key") String apiKey,
+                                                     @Query("query") String query);
+
     @GET("movie/{movie_id}/reviews")
     Observable<BaseListApiDao<ReviewDao>> movieReviews(
             @Path("movie_id") long movieId, @Query("api_key") String apiKey);

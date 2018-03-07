@@ -95,6 +95,48 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
                 });
     }
 
+    void searchMovies(String movieTitle) {
+
+        mView.showProgress();
+        if (mSubscription != null) mSubscription.unsubscribe();
+
+
+        if (mBaseApplication != null) {
+            mBaseApplication = BaseApplication.get(mView.getContext());
+        } else {
+            mBaseApplication = BaseApplication.get(mView.getContext());
+        }
+
+        mSubscription = mAPIService.searchMovie(Constant.MOVIEDB_APIKEY, movieTitle)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(mBaseApplication.getSubscribeScheduler())
+                .subscribe(new Subscriber<BaseListApiDao<MovieDao>>() {
+                    @Override
+                    public void onCompleted() {
+                        Timber.i("Movies loaded " + mBaseListApiDao);
+                        mView.showDiscoverMovie(mBaseListApiDao);
+                        mView.hideProgress();
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        Timber.e("Error loading Movies", error);
+                        if (isHttp404(error)) {
+                            mEventBus.post(new FavoriteEvent(false, mBaseApplication.getString(R.string.error_not_found)));
+                        } else {
+                            mEventBus.post(new FavoriteEvent(false, mBaseApplication.getString(R.string.error_loading_movie)));
+                        }
+
+                        mView.hideProgress();
+                    }
+
+                    @Override
+                    public void onNext(BaseListApiDao<MovieDao> baseListApiDao) {
+                        mBaseListApiDao = baseListApiDao;
+                    }
+                });
+    }
+
     void discoverFavoritesMovies() {
         mView.showProgress();
 

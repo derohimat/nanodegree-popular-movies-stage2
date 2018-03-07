@@ -97,4 +97,7 @@ dependencies {
 
     //----- Easy Permission Management
     compile "com.karumi:dexter:2.2.2"
+
+    //----- Search View
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 }

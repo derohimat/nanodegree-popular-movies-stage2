@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/appcolor_blue</item>
@@ -17,6 +17,7 @@
 
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
         <item name="android:navigationBarColor">@color/appcolor_light_grey</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="MaterialAnimations.TextAppearance.Title" parent="android:TextAppearance.Material.Title">
