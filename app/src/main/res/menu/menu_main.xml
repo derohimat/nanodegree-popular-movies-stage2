@@ -12,9 +12,9 @@
 
     <item
         android:id="@+id/action_sort"
-        android:icon="@drawable/ic_action_sort_1"
+        android:icon="@drawable/ic_language_white_24dp"
         android:orderInCategory="1"
-        android:title="@string/action_sort"
+        android:title="@string/language"
         app:showAsAction="ifRoom"/>
 
 </menu>

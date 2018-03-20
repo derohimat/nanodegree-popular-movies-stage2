@@ -7,7 +7,7 @@ apply from: '../config/quality.gradle'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.3'
 
     dexOptions {
         javaMaxHeapSize "4g"
@@ -100,4 +100,7 @@ dependencies {
 
     //----- Search View
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //----- Bottom Navigation
+    compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
 }

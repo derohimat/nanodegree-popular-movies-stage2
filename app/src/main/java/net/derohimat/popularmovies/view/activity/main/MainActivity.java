@@ -1,6 +1,7 @@
 package net.derohimat.popularmovies.view.activity.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -11,11 +12,14 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import net.derohimat.baseapp.ui.view.BaseRecyclerView;
 import net.derohimat.popularmovies.R;
+import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.events.FavoriteEvent;
 import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
@@ -36,6 +40,7 @@ import butterknife.Bind;
 public class MainActivity extends AppBaseActivity implements MainMvpView {
 
     @Bind(R.id.recyclerview) BaseRecyclerView mRecyclerView;
+    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.search_view) MaterialSearchView searchView;
     private ProgressBar mProgressBar = null;
@@ -45,8 +50,10 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     private final static int MAX_WIDTH_COL_DP = 185;
     private String[] mSortArray;
     private int mSortSelected = 0;
-    private String mSort = Constant.SORT_POPULAR;
+    private String mType = Constant.TYPE_NOW;
+    private String mLanguage = Constant.LANG_EN;
 
+    @Inject PreferencesHelper preferencesHelper;
     @Inject
     EventBus eventBus;
 
@@ -75,20 +82,53 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
             }
         });
 
-        mSortArray = new String[]{getString(R.string.main_sort_most_popular),
-                getString(R.string.main_sort_highest_rated),
-                getString(R.string.main_sort_favorites)};
+        mSortArray = new String[]{getString(R.string.main_language_en),
+                getString(R.string.main_language_id)};
 
+        setupBottomMenu();
         setUpPresenter();
         setUpAdapter();
         setUpRecyclerView();
+    }
+
+    private void setupBottomMenu() {
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(getString(R.string.tab_now_playing), R.drawable.ic_airplay_white_24dp);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(getString(R.string.tab_upcoming), R.drawable.ic_queue_play_next_white_24dp);
+
+        // Add items
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+
+        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#0099E5"));
+        bottomNavigation.setAccentColor(Color.parseColor("#FFFFFF"));
+        bottomNavigation.setInactiveColor(Color.parseColor("#90FFFFFF"));
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setColored(false);
+
+        bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
+            switch (position) {
+                case 0:
+                    if (!wasSelected) {
+                        mType = Constant.TYPE_NOW;
+                        mPresenter.discoverMovies(mType, mLanguage);
+                    }
+                    break;
+                case 1:
+                    if (!wasSelected) {
+                        mType = Constant.TYPE_UP;
+                        mPresenter.discoverMovies(mType, mLanguage);
+                    }
+                    break;
+            }
+            return true;
+        });
     }
 
     @Override
     public void setUpPresenter() {
         mPresenter = new MainPresenter(this);
         mPresenter.attachView(this);
-        mPresenter.discoverMovies(mSort);
+        mPresenter.discoverMovies(mType, mLanguage);
     }
 
     @Override
@@ -132,7 +172,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                 if (mSortSelected == 2) {
                     mPresenter.discoverFavoritesMovies();
                 } else {
-                    mPresenter.discoverMovies(mSort);
+                    mPresenter.discoverMovies(mType, mLanguage);
                 }
             }
 
@@ -145,7 +185,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                mPresenter.searchMovies(query);
+                mPresenter.discoverMovies(query, mLanguage);
                 return false;
             }
 
@@ -253,22 +293,23 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Override
     public void showSort() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.main_sort_by)
+        builder.setTitle(R.string.main_select_language)
                 .setSingleChoiceItems(mSortArray,
                         mSortSelected,
                         (dialog, which) -> {
                             mSortSelected = which;
                             switch (mSortSelected) {
                                 case 0:
-                                    mSort = Constant.SORT_POPULAR;
-                                    mPresenter.discoverMovies(mSort);
+                                    mLanguage = Constant.LANG_EN;
+                                    preferencesHelper.setLanguage(mLanguage);
+                                    mPresenter.discoverMovies(mType, mLanguage);
                                     break;
                                 case 1:
-                                    mSort = Constant.SORT_HIGHEST_RATED;
-                                    mPresenter.discoverMovies(mSort);
+                                    mLanguage = Constant.LANG_ID;
+                                    preferencesHelper.setLanguage(mLanguage);
+                                    mPresenter.discoverMovies(mType, mLanguage);
                                     break;
                                 default:
-                                    mPresenter.discoverFavoritesMovies();
                                     break;
                             }
                             dialog.dismiss();

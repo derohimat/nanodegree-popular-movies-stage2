@@ -5,6 +5,7 @@ import android.content.Context;
 import net.derohimat.baseapp.presenter.BasePresenter;
 import net.derohimat.popularmovies.BaseApplication;
 import net.derohimat.popularmovies.R;
+import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.data.remote.APIService;
 import net.derohimat.popularmovies.events.FavoriteEvent;
 import net.derohimat.popularmovies.model.BaseListApiDao;
@@ -32,6 +33,9 @@ public class DetailPresenter implements BasePresenter<DetailMvpView> {
     private MovieDao mMovieDao;
     private BaseListApiDao<ReviewDao> mReviews;
     private BaseListApiDao<VideoDao> mVideos;
+
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     @Inject
     DetailPresenter(Context context) {
@@ -72,7 +76,7 @@ public class DetailPresenter implements BasePresenter<DetailMvpView> {
     void showReviews() {
         mView.showProgress();
 
-        mSubscription = mAPIService.movieReviews(mMovieDao.getId(), Constant.MOVIEDB_APIKEY)
+        mSubscription = mAPIService.movieReviews(mMovieDao.getId(), Constant.MOVIEDB_APIKEY, preferencesHelper.getLanguage())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
                 .subscribe(new Subscriber<BaseListApiDao<ReviewDao>>() {
@@ -105,7 +109,7 @@ public class DetailPresenter implements BasePresenter<DetailMvpView> {
     void showVideos() {
         mView.showProgress();
 
-        mSubscription = mAPIService.movieVideos(mMovieDao.getId(), Constant.MOVIEDB_APIKEY)
+        mSubscription = mAPIService.movieVideos(mMovieDao.getId(), Constant.MOVIEDB_APIKEY, preferencesHelper.getLanguage())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
                 .subscribe(new Subscriber<BaseListApiDao<VideoDao>>() {

@@ -53,7 +53,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
         if (mSubscription != null) mSubscription.unsubscribe();
     }
 
-    void discoverMovies(String sortBy) {
+    void discoverMovies(String sortBy, String language) {
 
         mView.showProgress();
         if (mSubscription != null) mSubscription.unsubscribe();
@@ -65,7 +65,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
             mBaseApplication = BaseApplication.get(mView.getContext());
         }
 
-        mSubscription = mAPIService.discoverMovie(sortBy, Constant.MOVIEDB_APIKEY)
+        mSubscription = mAPIService.discoverMovie(sortBy, Constant.MOVIEDB_APIKEY, language)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
                 .subscribe(new Subscriber<BaseListApiDao<MovieDao>>() {
@@ -95,7 +95,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
                 });
     }
 
-    void searchMovies(String movieTitle) {
+    void searchMovies(String movieTitle, String language) {
 
         mView.showProgress();
         if (mSubscription != null) mSubscription.unsubscribe();
@@ -107,7 +107,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
             mBaseApplication = BaseApplication.get(mView.getContext());
         }
 
-        mSubscription = mAPIService.searchMovie(Constant.MOVIEDB_APIKEY, movieTitle)
+        mSubscription = mAPIService.searchMovie(Constant.MOVIEDB_APIKEY, movieTitle, language)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(mBaseApplication.getSubscribeScheduler())
                 .subscribe(new Subscriber<BaseListApiDao<MovieDao>>() {

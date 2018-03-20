@@ -26,20 +26,22 @@ public interface APIService {
 
     @GET("movie/{sort_by}")
     Observable<BaseListApiDao<MovieDao>> discoverMovie(
-            @Path("sort_by") String sortBy, @Query("api_key") String apiKey);
+            @Path("sort_by") String sortBy, @Query("api_key") String apiKey,
+            @Query("language") String language);
 
 
     @GET("search/movie")
     Observable<BaseListApiDao<MovieDao>> searchMovie(@Query("api_key") String apiKey,
-                                                     @Query("query") String query);
+                                                     @Query("query") String query,
+                                                     @Query("language") String language);
 
     @GET("movie/{movie_id}/reviews")
     Observable<BaseListApiDao<ReviewDao>> movieReviews(
-            @Path("movie_id") long movieId, @Query("api_key") String apiKey);
+            @Path("movie_id") long movieId, @Query("api_key") String apiKey, @Query("language") String language);
 
     @GET("movie/{movie_id}/videos")
     Observable<BaseListApiDao<VideoDao>> movieVideos(
-            @Path("movie_id") long movieId, @Query("api_key") String apiKey);
+            @Path("movie_id") long movieId, @Query("api_key") String apiKey, @Query("language") String language);
 
     class Factory {
 

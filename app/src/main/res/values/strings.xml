@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">Popular Movies</string>
 
-    <string name="action_sort">Sort</string>
+    <string name="language">Language</string>
 
-    <string name="main_sort_by">Sort by</string>
-    <string name="main_sort_most_popular">Most popular</string>
-    <string name="main_sort_highest_rated">Highest rated</string>
-    <string name="main_sort_favorites">Favorites</string>
+    <string name="main_select_language">Select Language</string>
+    <string name="main_language_en">English</string>
+    <string name="main_language_id">Indonesia</string>
 
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_delete">Delete</string>
@@ -35,5 +34,8 @@
     <string name="user_reviews">User Reviews</string>
     <string name="search">Search</string>
     <string name="search_movie">Search Movie…</string>
+
+    <string name="tab_now_playing">Now Playing</string>
+    <string name="tab_upcoming">Upcoming</string>
 
 </resources>
