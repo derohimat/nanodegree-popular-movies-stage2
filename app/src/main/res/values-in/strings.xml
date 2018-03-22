@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Film Populer</string>
+
+    <string name="language">Bahasa</string>
+
+    <string name="main_select_language">Pilih Bahasa</string>
+    <string name="main_language_en">Inggris</string>
+    <string name="main_language_id">Indonesia</string>
+
+    <string name="dialog_action_ok">OK</string>
+    <string name="dialog_action_delete">Hapus</string>
+    <string name="dialog_action_cancel">Batal</string>
+
+    <string name="dialog_error_title">Oops</string>
+    <string name="dialog_general_error_Message">Terjadi kesalahan pada saat request data</string>
+    <string name="dialog_error_no_connection">Maaf, Anda tidak terkoneksi ke internet!</string>
+
+    <string name="dialog_general_error_message">Terjadi Kesalahan</string>
+    <string name="error_not_found">Tidak ditenukan</string>
+    <string name="error_loading_movie">kesalahan saat mengambil data film</string>
+    <string name="error_loading_reviews">kesalahan saat mengambil data komentar</string>
+    <string name="error_loading_videos">kesalahan saat mengambil data video</string>
+    <string name="general">Umum</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="generic_error_title">Ops! Terjadi kesalahan.</string>
+    <string name="title">Title</string>
+    <string name="dummy_rate">x.x/10</string>
+    <string name="add_to_favorite">Tambahkan ke Favorite</string>
+    <string name="remove_from_favorite">Hapus dari Favorite</string>
+    <string name="no_favorite">Tidak ada film Favorite</string>
+    <string name="dummy_release_date">Tanggal rilis - xxx menit</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet.</string>
+    <string name="watch_trailer">Lihat Trailer</string>
+    <string name="user_reviews">Ulasan Penonton</string>
+    <string name="search">Cari</string>
+    <string name="search_movie">Cari Film…</string>
+
+    <string name="tab_now_playing">Sedang Tayang</string>
+    <string name="tab_upcoming">Akan Tayang</string>
+
+</resources>

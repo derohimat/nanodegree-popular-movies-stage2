@@ -3,7 +3,10 @@ package net.derohimat.popularmovies;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.res.Configuration;
 import android.support.annotation.VisibleForTesting;
+
+import com.franmontiel.localechanger.LocaleChanger;
 
 import net.derohimat.popularmovies.di.component.ApplicationComponent;
 import net.derohimat.popularmovies.di.component.DaggerApplicationComponent;
@@ -13,6 +16,10 @@ import net.derohimat.popularmovies.events.AuthenticationErrorEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import io.realm.Realm;
@@ -21,6 +28,12 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class BaseApplication extends Application {
+
+    public static final List<Locale> SUPPORTED_LOCALES =
+            Arrays.asList(
+                    new Locale("en", "US"),
+                    new Locale("in", "ID")
+            );
 
     private Scheduler mScheduler;
     private ApplicationComponent mApplicationComponent;
@@ -43,6 +56,14 @@ public class BaseApplication extends Application {
 
         mApplicationComponent.inject(this);
         mEventBus.register(this);
+
+        LocaleChanger.initialize(getApplicationContext(), SUPPORTED_LOCALES);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        LocaleChanger.onConfigurationChanged();
     }
 
     public static BaseApplication get(Context context) {

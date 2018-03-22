@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.franmontiel.localechanger.LocaleChanger;
+import com.franmontiel.localechanger.utils.ActivityRecreationHelper;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -37,6 +39,8 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 
+import static net.derohimat.popularmovies.BaseApplication.SUPPORTED_LOCALES;
+
 public class MainActivity extends AppBaseActivity implements MainMvpView {
 
     @Bind(R.id.recyclerview) BaseRecyclerView mRecyclerView;
@@ -54,8 +58,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     private String mLanguage = Constant.LANG_EN;
 
     @Inject PreferencesHelper preferencesHelper;
-    @Inject
-    EventBus eventBus;
+    @Inject EventBus eventBus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,20 +73,30 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
 
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
+        toolbar.setTitle(getString(R.string.app_name));
         setupToolbar(toolbar);
         getBaseActionBar().setElevation(0);
 
         getBaseFragmentManager().addOnBackStackChangedListener(() -> {
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getBaseActionBar().setDisplayHomeAsUpEnabled(true);
+
+                bottomNavigation.setVisibility(View.GONE);
             } else {
                 getBaseActionBar().setTitle(getString(R.string.app_name));
                 getBaseActionBar().setDisplayHomeAsUpEnabled(false);
+
+                bottomNavigation.setVisibility(View.VISIBLE);
             }
         });
 
         mSortArray = new String[]{getString(R.string.main_language_en),
                 getString(R.string.main_language_id)};
+
+        if (LocaleChanger.getLocale().equals(SUPPORTED_LOCALES.get(1))) {
+            mSortSelected = 1;
+            mLanguage = Constant.LANG_ID;
+        }
 
         setupBottomMenu();
         setUpPresenter();
@@ -140,6 +153,8 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
             getBaseActionBar().setTitle(selectedItem.getTitle());
             getBaseFragmentManager().beginTransaction().replace(R.id.container_rellayout,
                     DetailFragment.newInstance(selectedItem)).addToBackStack(null).commit();
+
+            bottomNavigation.setVisibility(View.GONE);
         });
     }
 
@@ -303,11 +318,15 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                                     mLanguage = Constant.LANG_EN;
                                     preferencesHelper.setLanguage(mLanguage);
                                     mPresenter.discoverMovies(mType, mLanguage);
+                                    LocaleChanger.setLocale(SUPPORTED_LOCALES.get(0));
+                                    ActivityRecreationHelper.recreate(this, true);
                                     break;
                                 case 1:
                                     mLanguage = Constant.LANG_ID;
                                     preferencesHelper.setLanguage(mLanguage);
                                     mPresenter.discoverMovies(mType, mLanguage);
+                                    LocaleChanger.setLocale(SUPPORTED_LOCALES.get(1));
+                                    ActivityRecreationHelper.recreate(this, true);
                                     break;
                                 default:
                                     break;
