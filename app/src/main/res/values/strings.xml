@@ -37,5 +37,6 @@
 
     <string name="tab_now_playing">Now Playing</string>
     <string name="tab_upcoming">Upcoming</string>
+    <string name="tab_favorite">Favorite</string>
 
 </resources>

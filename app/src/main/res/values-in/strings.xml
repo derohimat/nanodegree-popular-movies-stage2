@@ -37,5 +37,6 @@
 
     <string name="tab_now_playing">Sedang Tayang</string>
     <string name="tab_upcoming">Akan Tayang</string>
+    <string name="tab_favorite">Disukai</string>
 
 </resources>

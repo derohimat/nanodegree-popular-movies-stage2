@@ -151,6 +151,7 @@ public class MainPresenter implements BasePresenter<MainMvpView> {
         final RealmResults<MovieDao> movieDaos = mRealm.where(MovieDao.class).equalTo("favorite", true).findAll();
 
         if (movieDaos.isEmpty()) {
+            mView.showFavoritesMovie(movieDaos);
             mEventBus.post(new FavoriteEvent(false, mBaseApplication.getString(R.string.no_favorite)));
         } else {
             mView.showFavoritesMovie(movieDaos);

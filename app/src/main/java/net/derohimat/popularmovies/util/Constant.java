@@ -3,6 +3,7 @@ package net.derohimat.popularmovies.util;
 public class Constant {
     public final static String TYPE_NOW = "now_playing";
     public final static String TYPE_UP = "upcoming";
+    public final static String TYPE_FAVORITE = "favorite";
 
     public final static String LANG_EN = "en-US";
     public final static String LANG_ID = "id-ID";

@@ -107,10 +107,12 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     private void setupBottomMenu() {
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(getString(R.string.tab_now_playing), R.drawable.ic_airplay_white_24dp);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(getString(R.string.tab_upcoming), R.drawable.ic_queue_play_next_white_24dp);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(getString(R.string.tab_favorite), R.drawable.ic_favorite_white_24dp);
 
         // Add items
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
 
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#0099E5"));
         bottomNavigation.setAccentColor(Color.parseColor("#FFFFFF"));
@@ -130,6 +132,11 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                     if (!wasSelected) {
                         mType = Constant.TYPE_UP;
                         mPresenter.discoverMovies(mType, mLanguage);
+                    }
+                case 2:
+                    if (!wasSelected) {
+                        mType = Constant.TYPE_FAVORITE;
+                        mPresenter.discoverFavoritesMovies();
                     }
                     break;
             }
@@ -184,7 +191,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                if (mSortSelected == 2) {
+                if (mType.equals(Constant.TYPE_FAVORITE)) {
                     mPresenter.discoverFavoritesMovies();
                 } else {
                     mPresenter.discoverMovies(mType, mLanguage);
@@ -265,7 +272,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Subscribe
     public void onEvent(FavoriteEvent event) {
         if (event.ismSuccess()) {
-            if (mSortSelected == 2) {
+            if (mType.equals(Constant.TYPE_FAVORITE)) {
                 mPresenter.discoverFavoritesMovies();
             }
         } else {
@@ -276,18 +283,14 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Override
     public void showDiscoverMovie(BaseListApiDao data) {
         mRecyclerView.refreshComplete();
-        if (!mAdapter.getDatas().isEmpty()) {
-            mAdapter.clear();
-        }
+        mAdapter.clear();
         mAdapter.addAll(data.getResults());
     }
 
     @Override
     public void showFavoritesMovie(List<MovieDao> movieDaos) {
         mRecyclerView.refreshComplete();
-        if (!mAdapter.getDatas().isEmpty()) {
-            mAdapter.clear();
-        }
+        mAdapter.clear();
         mAdapter.addAll(movieDaos);
     }
 
