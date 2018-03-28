@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Made Movie</string>
+    <string name="app_name">MADE Movie</string>
+
+    <string name="title">Title</string>
+    <string name="dummy_rate">x.x/10</string>
+    <string name="add_to_favorite">Add To Favorite</string>
+    <string name="remove_from_favorite">Remove From Favorite</string>
+    <string name="no_favorite">No Favorite Movie</string>
+    <string name="dummy_release_date">Release date - xxx minutes</string>
 </resources>

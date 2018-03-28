@@ -170,10 +170,11 @@ public class MovieProvider extends ContentProvider {
                         MovieDao movieDao = realm1.createObject(MovieDao.class, nextId);
 
                         movieDao.setAdult((Integer) contentValues.get(MovieColumns.IS_ADULT) == 1);
-                        movieDao.setBackdrop_path(contentValues.get(MovieColumns.POSTER_PATH).toString());
+                        movieDao.setBackdrop_path(contentValues.get(MovieColumns.BACKDROP_PATH).toString());
                         movieDao.setOriginal_language(contentValues.get(MovieColumns.ORIGINAL_LANGUAGE).toString());
                         movieDao.setOriginal_title(contentValues.get(MovieColumns.ORIGINAL_TITLE).toString());
                         movieDao.setOverview(contentValues.get(MovieColumns.OVERVIEW).toString());
+                        movieDao.setPoster_path(contentValues.get(MovieColumns.POSTER_PATH).toString());
                         movieDao.setRelease_date(contentValues.get(MovieColumns.RELEASE_DATE).toString());
                         movieDao.setPopularity((Double) contentValues.get(MovieColumns.POPULARITY));
                         movieDao.setTitle(contentValues.get(MovieColumns.TITLE).toString());

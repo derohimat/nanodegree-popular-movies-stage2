@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import net.derohimat.mademovie.model.MovieDao;
+
 public class DatabaseContract {
     public static final String TABLE_MOVIE = "movie";
 
@@ -40,12 +42,38 @@ public class DatabaseContract {
     /*
     Digunakan untuk mempermudah akses data di dalam cursor dengan parameter nama column
     */
+
+    public static MovieDao getMovieDao(Cursor cursor) {
+        MovieDao movieDao = new MovieDao();
+
+        movieDao.setId(getColumnLong(cursor, MovieColumns._ID));
+        movieDao.setAdult(getColumnInt(cursor, MovieColumns.IS_ADULT) == 1);
+        movieDao.setBackdrop_path(getColumnString(cursor, MovieColumns.BACKDROP_PATH));
+        movieDao.setOriginal_language(getColumnString(cursor, MovieColumns.ORIGINAL_LANGUAGE));
+        movieDao.setOriginal_title(getColumnString(cursor, MovieColumns.ORIGINAL_TITLE));
+        movieDao.setOverview(getColumnString(cursor, MovieColumns.OVERVIEW));
+        movieDao.setPoster_path(getColumnString(cursor, MovieColumns.POSTER_PATH));
+        movieDao.setRelease_date(getColumnString(cursor, MovieColumns.RELEASE_DATE));
+        movieDao.setPopularity(getColumnDouble(cursor, MovieColumns.POPULARITY));
+        movieDao.setTitle(getColumnString(cursor, MovieColumns.TITLE));
+        movieDao.setVideo(getColumnInt(cursor, MovieColumns.VIDEO) == 1);
+        movieDao.setVote_average(getColumnDouble(cursor, MovieColumns.VOTE_AVERAGE));
+        movieDao.setVote_count(getColumnInt(cursor, MovieColumns.VOTE_COUNT));
+        movieDao.setFavorite(getColumnInt(cursor, MovieColumns.IS_FAVORITE) == 1);
+
+        return movieDao;
+    }
+
     public static String getColumnString(Cursor cursor, String columnName) {
         return cursor.getString(cursor.getColumnIndex(columnName));
     }
 
     public static int getColumnInt(Cursor cursor, String columnName) {
         return cursor.getInt(cursor.getColumnIndex(columnName));
+    }
+
+    public static double getColumnDouble(Cursor cursor, String columnName) {
+        return cursor.getDouble(cursor.getColumnIndex(columnName));
     }
 
     public static long getColumnLong(Cursor cursor, String columnName) {
