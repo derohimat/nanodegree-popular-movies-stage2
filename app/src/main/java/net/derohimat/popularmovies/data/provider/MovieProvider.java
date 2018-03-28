@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -33,7 +34,7 @@ public class MovieProvider extends ContentProvider {
                 DatabaseContract.TABLE_MOVIE,
                 MOVIES);
 
-        // content://net.derohimat.popularmovies/movies/id
+        // content://net.derohimat.popularmovies/movies/#id
         sUriMatcher.addURI(DatabaseContract.CONTENT_AUTHORITY,
                 DatabaseContract.TABLE_MOVIE + "/#",
                 MOVIE_WITH_ID);
@@ -61,10 +62,8 @@ public class MovieProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
-
-        int match = sUriMatcher.match(uri);
 
         //Get Realm Instance
         Realm realm = Realm.getDefaultInstance();
@@ -86,7 +85,7 @@ public class MovieProvider extends ContentProvider {
         });
 
         try {
-            switch (match) {
+            switch (sUriMatcher.match(uri)) {
                 //Expected "query all" Uri: content://net.derohimat.popularmovies/movies
 
                 case MOVIES:
@@ -115,7 +114,7 @@ public class MovieProvider extends ContentProvider {
 
                 //Expected "query one" Uri: content://net.derohimat.popularmovies/movie/{id}
                 case MOVIE_WITH_ID:
-                    Integer id = Integer.parseInt(uri.getPathSegments().get(1));
+                    Integer id = Integer.parseInt(uri.getLastPathSegment());
                     MovieDao movieDao = realm.where(MovieDao.class).equalTo(MovieColumns._ID, id).findFirst();
                     myCursor.addRow(new Object[]{
                             movieDao.getId(),
@@ -139,7 +138,6 @@ public class MovieProvider extends ContentProvider {
                     throw new UnsupportedOperationException("Unknown uri: " + uri);
             }
 
-
             myCursor.setNotificationUri(getContext().getContentResolver(), uri);
         } finally {
             realm.close();
@@ -150,7 +148,7 @@ public class MovieProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(Uri uri, final ContentValues contentValues) {
+    public Uri insert(@NonNull Uri uri, final ContentValues contentValues) {
         //COMPLETE: Expected Uri: content://net.derohimat.popularmovies/movie
 
         //final SQLiteDatabase taskDb = mDbHelper.getReadableDatabase();
@@ -164,11 +162,9 @@ public class MovieProvider extends ContentProvider {
                 case MOVIES:
                     realm.executeTransaction(realm1 -> {
 
-                        Number currId = realm1.where(MovieDao.class).max(MovieColumns._ID);
-                        Integer nextId = (currId == null) ? 1 : currId.intValue() + 1;
+                        MovieDao movieDao = realm1.createObject(MovieDao.class);
 
-                        MovieDao movieDao = realm1.createObject(MovieDao.class, nextId);
-
+                        movieDao.setId((Long) contentValues.get(MovieColumns._ID));
                         movieDao.setAdult((Integer) contentValues.get(MovieColumns.IS_ADULT) == 1);
                         movieDao.setBackdrop_path(contentValues.get(MovieColumns.BACKDROP_PATH).toString());
                         movieDao.setOriginal_language(contentValues.get(MovieColumns.ORIGINAL_LANGUAGE).toString());
@@ -199,9 +195,9 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-        //Expected Uri: content://net.derohimat.popularmovies/movie/{id}
+        //Expected Uri: content://net.derohimat.popularmovies/movies/#{id}
         Realm realm = Realm.getDefaultInstance();
 
         int match = sUriMatcher.match(uri);
@@ -233,7 +229,7 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         int count = 0;
         Realm realm = Realm.getDefaultInstance();
         try {
@@ -277,7 +273,7 @@ public class MovieProvider extends ContentProvider {
 
             if (oldVersion != 0) {
                 schema.create(DatabaseContract.TABLE_MOVIE)
-                        .addField(MovieColumns._ID, Integer.class)
+                        .addField(MovieColumns._ID, Long.class)
                         .addField(MovieColumns.IS_ADULT, Integer.class)
                         .addField(MovieColumns.BACKDROP_PATH, String.class)
                         .addField(MovieColumns.ORIGINAL_LANGUAGE, String.class)

@@ -1,36 +1,44 @@
 package net.derohimat.mademovie;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import net.derohimat.baseapp.ui.BaseActivity;
+import net.derohimat.mademovie.model.MovieDao;
+
+import butterknife.Bind;
 
 import static net.derohimat.mademovie.db.DatabaseContract.CONTENT_URI;
-import static net.derohimat.mademovie.db.DatabaseContract.MovieColumns._ID;
+import static net.derohimat.mademovie.db.DatabaseContract.getMovieDao;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
+
+    @Bind(R.id.list_view)
+    ListView lvMovies;
 
     private MovieAdapter mAdapter;
-    private ListView lvNotes;
-
     private final int LOAD_MOVIE_ID = 110;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getResourceLayout() {
+        return R.layout.activity_main;
+    }
 
-        lvNotes = (ListView) findViewById(R.id.list_view);
-
+    @Override
+    protected void onViewReady(Bundle savedInstanceState) {
         mAdapter = new MovieAdapter(this, null, true);
 
-        lvNotes.setAdapter(mAdapter);
-        lvNotes.setOnItemClickListener(this);
+        lvMovies.setAdapter(mAdapter);
+        lvMovies.setOnItemClickListener(this);
 
         getSupportLoaderManager().initLoader(LOAD_MOVIE_ID, null, this);
     }
@@ -61,9 +69,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Cursor cursor = (Cursor) mAdapter.getItem(i);
 
-        int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
-//        Intent intent = new Intent(MainActivity.this, FormActivity.class);
-//        intent.setData(Uri.parse(CONTENT_URI + "/" + id));
-//        startActivity(intent);
+        MovieDao movieDao = getMovieDao(cursor);
+
+        Toast.makeText(mContext, movieDao.getTitle(), Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(mContext, DetailActivity.class);
+        intent.setData(Uri.parse(CONTENT_URI + "/#" + movieDao.getId()));
+        startActivity(intent);
     }
 }
