@@ -87,7 +87,7 @@ public class MovieProvider extends ContentProvider {
 
         try {
             switch (match) {
-                //Expected "query all" Uri: content://net.derohimat.popularmovies/tasks
+                //Expected "query all" Uri: content://net.derohimat.popularmovies/movies
 
                 case MOVIES:
                     RealmResults<MovieDao> tasksRealmResults = realm.where(MovieDao.class).findAll();
@@ -100,6 +100,7 @@ public class MovieProvider extends ContentProvider {
                                 movieDao.getOriginal_title(),
                                 movieDao.getOverview(),
                                 movieDao.getRelease_date(),
+                                movieDao.getPoster_path(),
                                 movieDao.getPopularity(),
                                 movieDao.getTitle(),
                                 movieDao.isVideo(),
@@ -112,7 +113,7 @@ public class MovieProvider extends ContentProvider {
                     }
                     break;
 
-                //Expected "query one" Uri: content://net.derohimat.popularmovies/tasks/{id}
+                //Expected "query one" Uri: content://net.derohimat.popularmovies/movie/{id}
                 case MOVIE_WITH_ID:
                     Integer id = Integer.parseInt(uri.getPathSegments().get(1));
                     MovieDao movieDao = realm.where(MovieDao.class).equalTo(MovieColumns._ID, id).findFirst();
@@ -124,6 +125,7 @@ public class MovieProvider extends ContentProvider {
                             movieDao.getOriginal_title(),
                             movieDao.getOverview(),
                             movieDao.getRelease_date(),
+                            movieDao.getPoster_path(),
                             movieDao.getPopularity(),
                             movieDao.getTitle(),
                             movieDao.isVideo(),
@@ -149,7 +151,7 @@ public class MovieProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(Uri uri, final ContentValues contentValues) {
-        //COMPLETE: Expected Uri: content://net.derohimat.popularmovies/tasks
+        //COMPLETE: Expected Uri: content://net.derohimat.popularmovies/movie
 
         //final SQLiteDatabase taskDb = mDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
@@ -198,7 +200,7 @@ public class MovieProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-        //Expected Uri: content://net.derohimat.popularmovies/tasks/{id}
+        //Expected Uri: content://net.derohimat.popularmovies/movie/{id}
         Realm realm = Realm.getDefaultInstance();
 
         int match = sUriMatcher.match(uri);
@@ -210,9 +212,7 @@ public class MovieProvider extends ContentProvider {
                     MovieDao myTask = realm.where(MovieDao.class).equalTo(MovieColumns._ID, id).findFirst();
                     realm.beginTransaction();
                     myTask.setFavorite(true);
-                    if (values.get(MovieColumns.RELEASE_DATE) != null) {
-                        myTask.setRelease_date(MovieColumns.RELEASE_DATE);
-                    }
+                    myTask.setRelease_date(MovieColumns.RELEASE_DATE);
                     nrUpdated++;
                     realm.commitTransaction();
                     break;
@@ -277,9 +277,17 @@ public class MovieProvider extends ContentProvider {
             if (oldVersion != 0) {
                 schema.create(DatabaseContract.TABLE_MOVIE)
                         .addField(MovieColumns._ID, Integer.class)
+                        .addField(MovieColumns.IS_ADULT, Integer.class)
+                        .addField(MovieColumns.BACKDROP_PATH, String.class)
+                        .addField(MovieColumns.ORIGINAL_LANGUAGE, String.class)
+                        .addField(MovieColumns.ORIGINAL_TITLE, String.class)
+                        .addField(MovieColumns.OVERVIEW, String.class)
                         .addField(MovieColumns.POSTER_PATH, String.class)
-                        .addField(MovieColumns.IS_FAVORITE, Integer.class)
-                        .addField(MovieColumns.IS_ADULT, Integer.class);
+                        .addField(MovieColumns.POPULARITY, Integer.class)
+                        .addField(MovieColumns.TITLE, String.class)
+                        .addField(MovieColumns.VOTE_AVERAGE, Double.class)
+                        .addField(MovieColumns.VOTE_COUNT, Integer.class)
+                        .addField(MovieColumns.IS_FAVORITE, Integer.class);
                 oldVersion++;
             }
 

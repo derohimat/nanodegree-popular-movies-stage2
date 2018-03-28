@@ -9,7 +9,7 @@ public class DatabaseContract {
     public static final String TABLE_MOVIE = "movie";
 
     public static final class MovieColumns implements BaseColumns {
-        public static final String _ID = "movie_id";
+        public static final String _ID = "_id";
         public static final String IS_ADULT = "adult";
         public static final String BACKDROP_PATH = "backdrop_path";
         public static final String ORIGINAL_LANGUAGE = "original_language";

@@ -9,10 +9,8 @@ import io.realm.annotations.PrimaryKey;
 public class MovieDao extends RealmObject implements Parcelable {
     @PrimaryKey
     private long id;
-
     private boolean adult;
     private String backdrop_path;
-//    private List<Integer> genre_ids;
     private String original_language;
     private String original_title;
     private String overview;
@@ -32,10 +30,6 @@ public class MovieDao extends RealmObject implements Parcelable {
     public String getBackdrop_path() {
         return backdrop_path;
     }
-
-//    public List<Integer> getGenre_ids() {
-//        return genre_ids;
-//    }
 
     public long getId() {
         return id;
