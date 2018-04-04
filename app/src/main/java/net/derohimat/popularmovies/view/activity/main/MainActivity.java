@@ -25,6 +25,7 @@ import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.events.FavoriteEvent;
 import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
+import net.derohimat.popularmovies.reminder.AlarmReceiver;
 import net.derohimat.popularmovies.util.Constant;
 import net.derohimat.popularmovies.util.DialogFactory;
 import net.derohimat.popularmovies.view.AppBaseActivity;
@@ -102,6 +103,12 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
         setUpPresenter();
         setUpAdapter();
         setUpRecyclerView();
+        setupAlarmReminder();
+    }
+
+    private void setupAlarmReminder() {
+        AlarmReceiver alarmReceiver = new AlarmReceiver();
+        alarmReceiver.setRepeatingAlarm(getContext());
     }
 
     private void setupBottomMenu() {

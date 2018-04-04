@@ -41,5 +41,6 @@
     <string name="appwidget_text">CONTOH</string>
     <string name="add_widget">Tambah widget</string>
     <string name="empty_text">Tidak ada data</string>
+    <string name="reminded_message">Popular Movies missing you</string>
 
 </resources>
