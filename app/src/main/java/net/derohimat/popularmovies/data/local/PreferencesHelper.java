@@ -26,10 +26,10 @@ public class PreferencesHelper extends BasePreferenceUtils {
     }
 
     public String getLanguage() {
-        return mPref.getString(KEY_USER_ID, Constant.LANG_EN);
+        return mPref.getString(KEY_LANGUAGE, Constant.LANG_EN);
     }
 
     public void setLanguage(String language) {
-        mPref.edit().putString(KEY_USER_ID, language).apply();
+        mPref.edit().putString(KEY_LANGUAGE, language).apply();
     }
 }
