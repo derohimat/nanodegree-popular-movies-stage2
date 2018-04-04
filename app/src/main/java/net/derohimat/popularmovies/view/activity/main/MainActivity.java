@@ -1,8 +1,8 @@
 package net.derohimat.popularmovies.view.activity.main;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -114,9 +114,9 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#0099E5"));
-        bottomNavigation.setAccentColor(Color.parseColor("#FFFFFF"));
-        bottomNavigation.setInactiveColor(Color.parseColor("#90FFFFFF"));
+        bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        bottomNavigation.setAccentColor(ContextCompat.getColor(mContext, R.color.white));
+        bottomNavigation.setInactiveColor(ContextCompat.getColor(mContext, R.color.tab_inactive));
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setColored(false);
 
@@ -133,6 +133,7 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
                         mType = Constant.TYPE_UP;
                         mPresenter.discoverMovies(mType, mLanguage);
                     }
+                    break;
                 case 2:
                     if (!wasSelected) {
                         mType = Constant.TYPE_FAVORITE;

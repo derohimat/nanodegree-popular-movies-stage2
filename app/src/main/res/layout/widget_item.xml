@@ -17,8 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/AliceBlue"
-        android:padding="@dimen/spacing_normal"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="@dimen/spacing_micro"
         android:text="Judul"
         android:textColor="@color/Black"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 </RelativeLayout>
