@@ -5,8 +5,9 @@ import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.data.remote.APIService;
 import net.derohimat.popularmovies.data.remote.UnauthorisedInterceptor;
 import net.derohimat.popularmovies.di.module.ApplicationModule;
-import net.derohimat.popularmovies.view.fragment.detail.DetailPresenter;
 import net.derohimat.popularmovies.view.activity.main.MainPresenter;
+import net.derohimat.popularmovies.view.fragment.detail.DetailPresenter;
+import net.derohimat.popularmovies.widget.services.StackRemoteViewsFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,6 +19,8 @@ import io.realm.Realm;
 @Singleton
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
+
+    void inject(StackRemoteViewsFactory remoteViewsFactory);
 
     void inject(MainPresenter mainPresenter);
 

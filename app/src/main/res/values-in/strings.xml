@@ -38,5 +38,8 @@
     <string name="tab_now_playing">Sedang Tayang</string>
     <string name="tab_upcoming">Akan Tayang</string>
     <string name="tab_favorite">Disukai</string>
+    <string name="appwidget_text">CONTOH</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="empty_text">Tidak ada data</string>
 
 </resources>

@@ -24,8 +24,8 @@ android {
 
     defaultConfig {
         applicationId "net.derohimat.popularmovies"
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion 17
+        targetSdkVersion 22
         versionCode 3
         versionName "0.3"
     }
@@ -40,7 +40,6 @@ android {
         debug {
             applicationIdSuffix ".debug"
             debuggable true
-            signingConfig signingConfigs.config
         }
     }
 

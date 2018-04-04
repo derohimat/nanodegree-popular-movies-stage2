@@ -274,6 +274,8 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
         if (event.ismSuccess()) {
             if (mType.equals(Constant.TYPE_FAVORITE)) {
                 mPresenter.discoverFavoritesMovies();
+            } else {
+                mPresenter.discoverMovies(mType, mLanguage);
             }
         } else {
             DialogFactory.showErrorSnackBar(mContext, findViewById(android.R.id.content), new Throwable(event.getMessage())).show();

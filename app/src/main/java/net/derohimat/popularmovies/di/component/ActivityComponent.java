@@ -2,6 +2,7 @@ package net.derohimat.popularmovies.di.component;
 
 import net.derohimat.popularmovies.di.ActivityScope;
 import net.derohimat.popularmovies.view.activity.main.MainActivity;
+import net.derohimat.popularmovies.widget.services.StackRemoteViewsFactory;
 
 import dagger.Component;
 
@@ -10,4 +11,6 @@ import dagger.Component;
 public interface ActivityComponent extends ApplicationComponent {
 
     void inject(MainActivity mainActivity);
+
+    void inject(StackRemoteViewsFactory remoteViewsFactory);
 }

@@ -38,5 +38,8 @@
     <string name="tab_now_playing">Now Playing</string>
     <string name="tab_upcoming">Upcoming</string>
     <string name="tab_favorite">Favorite</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">NO DATA</string>
 
 </resources>
