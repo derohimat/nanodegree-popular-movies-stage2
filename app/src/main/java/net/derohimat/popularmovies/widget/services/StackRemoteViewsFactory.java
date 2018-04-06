@@ -67,14 +67,10 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public void onDataSetChanged() {
         Realm mRealm = Realm.getDefaultInstance();
 
-        if (!mRealm.isInTransaction()) {
-            mRealm.beginTransaction();
-        }
-
         final RealmResults<MovieDao> realmResult = mRealm.where(MovieDao.class).equalTo("favorite", true).findAll();
 
         if (!realmResult.isEmpty()) {
-            movieDaos.addAll(realmResult);
+            movieDaos.addAll(mRealm.copyFromRealm(realmResult));
         }
     }
 

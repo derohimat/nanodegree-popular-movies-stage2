@@ -42,7 +42,7 @@ public class FavoritesMovieWidgetProvider extends AppWidgetProvider {
         views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
 
         // Set Up Refresh Widget
-        Intent intentSync = new Intent(context, StackWidgetService.class);
+        Intent intentSync = new Intent(context, FavoritesMovieWidgetProvider.class);
         intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE); //You need to specify the action for the intent. Right now that intent is doing nothing for there is no action to be broadcasted.
         PendingIntent pendingSync = PendingIntent.getBroadcast(context, 0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT); //You need to specify a proper flag for the intent. Or else the intent will become deleted.
         views.setOnClickPendingIntent(R.id.btn_refresh, pendingSync);
