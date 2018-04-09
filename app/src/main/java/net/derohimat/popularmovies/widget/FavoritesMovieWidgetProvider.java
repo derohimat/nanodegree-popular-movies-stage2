@@ -44,6 +44,7 @@ public class FavoritesMovieWidgetProvider extends AppWidgetProvider {
         // Set Up Refresh Widget
         Intent intentSync = new Intent(context, FavoritesMovieWidgetProvider.class);
         intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE); //You need to specify the action for the intent. Right now that intent is doing nothing for there is no action to be broadcasted.
+        intentSync.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         PendingIntent pendingSync = PendingIntent.getBroadcast(context, 0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT); //You need to specify a proper flag for the intent. Or else the intent will become deleted.
         views.setOnClickPendingIntent(R.id.btn_refresh, pendingSync);
 
@@ -78,6 +79,11 @@ public class FavoritesMovieWidgetProvider extends AppWidgetProvider {
                     AppWidgetManager.INVALID_APPWIDGET_ID);
             int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
             Toast.makeText(context, "Touched view " + viewIndex, Toast.LENGTH_SHORT).show();
+        } else if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            mgr.notifyAppWidgetViewDataChanged(appWidgetId, R.id.stack_view);
         }
         super.onReceive(context, intent);
     }
