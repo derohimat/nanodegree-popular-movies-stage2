@@ -17,6 +17,10 @@ import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
 import net.derohimat.popularmovies.util.Constant;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import rx.Subscriber;
@@ -77,9 +81,8 @@ public class UpcomingMovieJobService extends JobService {
     }
 
     private void checkReleaseToday() {
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-//        String dateNow = format.format(new Date());
-        String dateNow = "2018-03-28";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String dateNow = format.format(new Date());
 
         mBaseListApiDao.getResults().stream().filter(item ->
                 item.getRelease_date().equals(dateNow)).forEachOrdered(item ->
