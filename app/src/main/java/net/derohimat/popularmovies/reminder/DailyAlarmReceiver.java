@@ -10,17 +10,16 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
 
 import net.derohimat.popularmovies.R;
 
 import java.util.Calendar;
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class DailyAlarmReceiver extends BroadcastReceiver {
     public static final String EXTRA_MESSAGE = "message";
     public static final int NOTIF_ID_REPEATING = 101;
 
-    public AlarmReceiver() {
+    public DailyAlarmReceiver() {
     }
 
     @Override
@@ -45,7 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     public void setRepeatingAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
+        Intent intent = new Intent(context, DailyAlarmReceiver.class);
         intent.putExtra(EXTRA_MESSAGE, context.getString(R.string.reminded_message));
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 7);
@@ -53,12 +52,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         calendar.set(Calendar.SECOND, 0);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIF_ID_REPEATING, intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        Toast.makeText(context, "Alarm has been setup", Toast.LENGTH_LONG).show();
     }
 
     public void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
+        Intent intent = new Intent(context, DailyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIF_ID_REPEATING, intent, 0);
         alarmManager.cancel(pendingIntent);
     }

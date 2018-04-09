@@ -1,6 +1,7 @@
 package net.derohimat.popularmovies.view.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -25,10 +26,11 @@ import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.events.FavoriteEvent;
 import net.derohimat.popularmovies.model.BaseListApiDao;
 import net.derohimat.popularmovies.model.MovieDao;
-import net.derohimat.popularmovies.reminder.AlarmReceiver;
+import net.derohimat.popularmovies.reminder.DailyAlarmReceiver;
 import net.derohimat.popularmovies.util.Constant;
 import net.derohimat.popularmovies.util.DialogFactory;
 import net.derohimat.popularmovies.view.AppBaseActivity;
+import net.derohimat.popularmovies.view.activity.settings.SettingsActivity;
 import net.derohimat.popularmovies.view.fragment.detail.DetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,8 +55,8 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     private MainRecyclerAdapter mAdapter;
     private StaggeredGridLayoutManager mLayoutManager;
     private final static int MAX_WIDTH_COL_DP = 185;
-    private String[] mSortArray;
-    private int mSortSelected = 0;
+    private String[] mLanguageArray;
+    private int mLanguageSelected = 0;
     private String mType = Constant.TYPE_NOW;
     private String mLanguage = Constant.LANG_EN;
 
@@ -91,11 +93,11 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
             }
         });
 
-        mSortArray = new String[]{getString(R.string.main_language_en),
+        mLanguageArray = new String[]{getString(R.string.main_language_en),
                 getString(R.string.main_language_id)};
 
         if (LocaleChanger.getLocale().equals(SUPPORTED_LOCALES.get(1))) {
-            mSortSelected = 1;
+            mLanguageSelected = 1;
             mLanguage = Constant.LANG_ID;
         }
 
@@ -107,8 +109,10 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     }
 
     private void setupAlarmReminder() {
-        AlarmReceiver alarmReceiver = new AlarmReceiver();
-        alarmReceiver.setRepeatingAlarm(getContext());
+        if (preferencesHelper.getDailyPrefs()) {
+            DailyAlarmReceiver dailyAlarmReceiver = new DailyAlarmReceiver();
+            dailyAlarmReceiver.setRepeatingAlarm(getContext());
+        }
     }
 
     private void setupBottomMenu() {
@@ -257,8 +261,11 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_sort:
-                showSort();
+            case R.id.action_change_language:
+                changeLanguage();
+                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -319,14 +326,14 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     }
 
     @Override
-    public void showSort() {
+    public void changeLanguage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.main_select_language)
-                .setSingleChoiceItems(mSortArray,
-                        mSortSelected,
+                .setSingleChoiceItems(mLanguageArray,
+                        mLanguageSelected,
                         (dialog, which) -> {
-                            mSortSelected = which;
-                            switch (mSortSelected) {
+                            mLanguageSelected = which;
+                            switch (mLanguageSelected) {
                                 case 0:
                                     mLanguage = Constant.LANG_EN;
                                     preferencesHelper.setLanguage(mLanguage);

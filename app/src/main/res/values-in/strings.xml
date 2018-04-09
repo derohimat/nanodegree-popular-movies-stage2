@@ -42,5 +42,6 @@
     <string name="add_widget">Tambah widget</string>
     <string name="empty_text">Tidak ada data</string>
     <string name="reminded_message">Popular Movies missing you</string>
+    <string name="settings">Pengaturan</string>
 
 </resources>

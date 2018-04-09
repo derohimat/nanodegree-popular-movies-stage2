@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefs_daily"
+        android:summary="Set Daily Notification every 07.00"
+        android:title="Daily Reminder"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefs_upcoming"
+        android:summary="Set Upcoming Film Notification every 08.00"
+        android:title="Upcoming Reminder"/>
+
+    <Preference
+        android:key="copyright"
+        android:summary="DeRohimat © 2018. All rights reserved."
+        android:title="Copyright"/>
+
+</PreferenceScreen>

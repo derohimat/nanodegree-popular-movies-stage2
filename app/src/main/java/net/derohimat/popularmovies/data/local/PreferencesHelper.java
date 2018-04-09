@@ -12,6 +12,8 @@ public class PreferencesHelper extends BasePreferenceUtils {
 
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_LANGUAGE = "language";
+    private static final String KEY_NOTIFICATIONS_DAILY = "prefs_daily";
+    private static final String KEY_NOTIFICATIONS_UPCOMING = "prefs_upcoming";
 
     public PreferencesHelper(Context context) {
         mPref = getSharedPreference(context);
@@ -32,4 +34,21 @@ public class PreferencesHelper extends BasePreferenceUtils {
     public void setLanguage(String language) {
         mPref.edit().putString(KEY_LANGUAGE, language).apply();
     }
+
+    public boolean getDailyPrefs() {
+        return mPref.getBoolean(KEY_NOTIFICATIONS_DAILY, false);
+    }
+
+    public void setDailyPrefs(boolean dailyPrefs) {
+        mPref.edit().putBoolean(KEY_NOTIFICATIONS_DAILY, dailyPrefs).apply();
+    }
+
+    public boolean getUpcomingPrefs() {
+        return mPref.getBoolean(KEY_NOTIFICATIONS_UPCOMING, false);
+    }
+
+    public void setUpcomingPrefs(boolean upcomingPrefs) {
+        mPref.edit().putBoolean(KEY_NOTIFICATIONS_UPCOMING, upcomingPrefs).apply();
+    }
+
 }

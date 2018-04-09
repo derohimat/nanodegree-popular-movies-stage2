@@ -42,5 +42,6 @@
     <string name="add_widget">Add widget</string>
     <string name="empty_text">NO DATA</string>
     <string name="reminded_message">Popular Movies missing you</string>
+    <string name="settings">Settings</string>
 
 </resources>

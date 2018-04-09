@@ -23,5 +23,5 @@ interface MainMvpView extends MvpView {
 
     void hideProgress();
 
-    void showSort();
+    void changeLanguage();
 }
