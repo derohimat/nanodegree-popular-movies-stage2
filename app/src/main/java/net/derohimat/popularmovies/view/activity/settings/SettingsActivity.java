@@ -22,7 +22,7 @@ public class SettingsActivity extends AppBaseActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
     }

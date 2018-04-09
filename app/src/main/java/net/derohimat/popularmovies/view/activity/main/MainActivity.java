@@ -64,9 +64,10 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
     @Inject EventBus eventBus;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
+        setupAlarm();
     }
 
     @Override
@@ -105,13 +106,15 @@ public class MainActivity extends AppBaseActivity implements MainMvpView {
         setUpPresenter();
         setUpAdapter();
         setUpRecyclerView();
-        setupAlarmReminder();
     }
 
-    private void setupAlarmReminder() {
+    private void setupAlarm() {
+        DailyAlarmReceiver dailyAlarmReceiver = new DailyAlarmReceiver();
         if (preferencesHelper.getDailyPrefs()) {
-            DailyAlarmReceiver dailyAlarmReceiver = new DailyAlarmReceiver();
-            dailyAlarmReceiver.setRepeatingAlarm(getContext());
+            dailyAlarmReceiver.setDailyReminderAlarm(getContext());
+        }
+        if (preferencesHelper.getUpcomingPrefs()) {
+            dailyAlarmReceiver.setUpcomingAlarm(getContext());
         }
     }
 

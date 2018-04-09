@@ -62,6 +62,11 @@
             android:name=".widget.services.StackWidgetService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".reminder.UpcomingMovieJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>

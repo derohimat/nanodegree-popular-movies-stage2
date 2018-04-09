@@ -5,6 +5,7 @@ import net.derohimat.popularmovies.data.local.PreferencesHelper;
 import net.derohimat.popularmovies.data.remote.APIService;
 import net.derohimat.popularmovies.data.remote.UnauthorisedInterceptor;
 import net.derohimat.popularmovies.di.module.ApplicationModule;
+import net.derohimat.popularmovies.reminder.UpcomingMovieJobService;
 import net.derohimat.popularmovies.view.activity.main.MainPresenter;
 import net.derohimat.popularmovies.view.fragment.detail.DetailPresenter;
 import net.derohimat.popularmovies.widget.services.StackRemoteViewsFactory;
@@ -29,6 +30,8 @@ public interface ApplicationComponent {
     void inject(BaseApplication baseApplication);
 
     void inject(UnauthorisedInterceptor unauthorisedInterceptor);
+
+    void inject(UpcomingMovieJobService upcomingMovieJobService);
 
     APIService apiService();
 
