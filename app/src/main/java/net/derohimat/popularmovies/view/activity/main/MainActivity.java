@@ -40,16 +40,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 
 import static net.derohimat.popularmovies.BaseApplication.SUPPORTED_LOCALES;
 
 public class MainActivity extends AppBaseActivity implements MainMvpView {
 
-    @Bind(R.id.recyclerview) BaseRecyclerView mRecyclerView;
-    @Bind(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.search_view) MaterialSearchView searchView;
+    @BindView(R.id.recyclerview) BaseRecyclerView mRecyclerView;
+    @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.search_view) MaterialSearchView searchView;
     private ProgressBar mProgressBar = null;
     private MainPresenter mPresenter;
     private MainRecyclerAdapter mAdapter;

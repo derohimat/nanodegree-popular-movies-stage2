@@ -12,14 +12,14 @@ import net.derohimat.popularmovies.view.fragment.settings.MyPreferenceFragment;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SettingsActivity extends AppBaseActivity {
 
     @Inject
     PreferencesHelper preferencesHelper;
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

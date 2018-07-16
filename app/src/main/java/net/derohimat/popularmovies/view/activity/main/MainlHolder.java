@@ -10,7 +10,7 @@ import net.derohimat.popularmovies.R;
 import net.derohimat.popularmovies.model.MovieDao;
 import net.derohimat.popularmovies.util.Constant;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 /**
@@ -18,7 +18,7 @@ import butterknife.Bind;
  */
 class MainlHolder extends BaseItemViewHolder<MovieDao> {
 
-    @Bind(R.id.iv_poster)
+    @BindView(R.id.iv_poster)
     BaseImageView mImgPoster;
 
     MainlHolder(Context context, View itemView, BaseRecyclerAdapter.OnItemClickListener itemClickListener,

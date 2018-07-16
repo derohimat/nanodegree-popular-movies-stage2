@@ -22,7 +22,7 @@ import static net.derohimat.mademovie.db.DatabaseContract.getMovieDao;
 
 public class MainActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ListView lvMovies;
 
     private MovieAdapter mAdapter;

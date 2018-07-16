@@ -25,19 +25,19 @@ import static net.derohimat.mademovie.db.DatabaseContract.getMovieDao;
 
 public class DetailActivity extends BaseActivity {
 
-    @Bind(R.id.iv_backdrop)
+    @BindView(R.id.iv_backdrop)
     BaseImageView mIvBackdrop;
-    @Bind(R.id.iv_poster)
+    @BindView(R.id.iv_poster)
     BaseImageView mIvPoster;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @Bind(R.id.tv_releasedate)
+    @BindView(R.id.tv_releasedate)
     TextView mTvReleaseDate;
-    @Bind(R.id.tv_voteavg)
+    @BindView(R.id.tv_voteavg)
     TextView mTvVoteAvg;
-    @Bind(R.id.tv_favorite)
+    @BindView(R.id.tv_favorite)
     TextView mTvFavorite;
-    @Bind(R.id.tv_synopsis)
+    @BindView(R.id.tv_synopsis)
     TextView mTvSynopsis;
 
     private MovieDao data = null;
